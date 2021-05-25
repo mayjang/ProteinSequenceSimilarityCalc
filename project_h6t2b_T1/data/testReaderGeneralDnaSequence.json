@@ -1,0 +1,22 @@
+{
+    "rna": "UAUAUGGCCUGGACUUGAUGUGAAAUGCAUAAAUUUUAA",
+    "rnaList": [
+        "AUGGCCUGGACU",
+        "AUGCAUAAAUUU"
+    ],
+    "dna": "TATATGGCCTGGACTTGATGTGAAATGCATAAATTTTAA",
+    "proteinList": [
+        {"aminoAcidList": [
+            "M",
+            "A",
+            "W",
+            "T"
+        ]},
+        {"aminoAcidList": [
+            "M",
+            "H",
+            "K",
+            "F"
+        ]}
+    ]
+}
