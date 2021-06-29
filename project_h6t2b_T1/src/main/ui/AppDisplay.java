@@ -12,11 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
 
 
 class AppDisplay extends JFrame implements ActionListener {
@@ -78,6 +75,7 @@ class AppDisplay extends JFrame implements ActionListener {
         createLabels();
         createFields();
         createButtons12();
+        createButtons345();
 
         add(rnaList);
         add(proteinJList);
@@ -90,6 +88,9 @@ class AppDisplay extends JFrame implements ActionListener {
     //MODIFIES: this
     //EFFECTS: initializes constructors
     public void initConstructor() {
+        
+       // BufferedReader csvReader = new BufferedReader(new FileReader((pathToCsv));
+        
         dnaSequence = new DnaSequence("TATATGGCCTGGACTTGATGTGAAATGCATAAATTTTAA");
         listOfCutRna = new DefaultListModel<>();
         rnaList = new JList<String>(listOfCutRna);
@@ -214,6 +215,9 @@ class AppDisplay extends JFrame implements ActionListener {
         JMenuItem save = new JMenuItem("Save");
         save.addActionListener(this);
         file.add(save);
+        JMenuItem openSequence = new JMenuItem("Open Sequence");
+        openSequence.addActionListener(this);
+        file.add(openSequence);
     }
 
     //EFFECTS: saves current DNA sequence
@@ -274,6 +278,12 @@ class AppDisplay extends JFrame implements ActionListener {
             actionPerformedOpen();
         } else if (choice.equals("Save")) {
             actionPerformedSave();
+        } else if (choice.equals("Open Sequence")) {
+            try {
+                actionPerformedOpenSequence();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (ae.getActionCommand().equals("addDna")) {
             playButtonSound1();
             actionPerformedAddDna();
@@ -290,6 +300,38 @@ class AppDisplay extends JFrame implements ActionListener {
             playButtonSound1();
             actionPerformedMatchProtein();
         }
+    }
+
+    private void actionPerformedOpenSequence() throws IOException {
+        JFileChooser chooser = new JFileChooser();
+        int userSelection = chooser.showOpenDialog(null);
+        if (userSelection != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+
+        File fileToOpen = chooser.getSelectedFile();
+        String pathToCsv = fileToOpen.getAbsolutePath();
+
+        BufferedReader csvReader = new BufferedReader(new FileReader(pathToCsv));
+        String row;
+        row = csvReader.readLine();
+
+        dnaSequence = new DnaSequence(row);
+        fieldForDnaSequence.setText(dnaSequence.getDna());
+        fieldForDnaToRna.setText(dnaSequence.getRna());
+
+        ArrayList<String> cutRnaList = dnaSequence.getRnaList();
+        listOfCutRna.removeAllElements();
+        for (int i = 0; i < cutRnaList.size(); i++) {
+            listOfCutRna.addElement(cutRnaList.get(i));
+        }
+
+        ArrayList<Protein> proteinList1 = dnaSequence.getProteinList();
+        updateProtein(proteinList1);
+
+
+        csvReader.close();
+
     }
 
     //EFFECTS: exits window when action performed is quit

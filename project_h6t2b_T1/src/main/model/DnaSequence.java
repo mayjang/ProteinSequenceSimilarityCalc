@@ -1,14 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 // Consists of raw DNA Sequence later converted to RNA and Protein
 public class DnaSequence implements Writable {
@@ -55,11 +54,9 @@ public class DnaSequence implements Writable {
         rnaList = new ArrayList<String>();
         proteinList = new ArrayList<Protein>();
 
-
         makeAminoAcidNames();
         makeAminoAcidDictionary();
         createAminoAcidMap();
-
 
     }
 

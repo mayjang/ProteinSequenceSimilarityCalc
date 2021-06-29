@@ -1,11 +1,11 @@
 package model;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+
+import java.util.ArrayList;
 
 
 // Represents protein used to compare similarities with other proteins
