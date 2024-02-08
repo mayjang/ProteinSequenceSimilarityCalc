@@ -1,5 +1,3 @@
-# ProteinSequenceSimilarityCalc
-
 # Protein Sequence Similarity Calculator
 
 ## Calculates the percentage similarity between a user-inputted protein and the registered protein in the system.
